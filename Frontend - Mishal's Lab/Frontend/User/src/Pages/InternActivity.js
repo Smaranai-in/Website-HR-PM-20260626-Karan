@@ -341,7 +341,18 @@ export default function InternActivity() {
                                 )}
                                 {assessment.status === "submitted" && assessment.submission_url && (
                                     <a
-                                        href={assessment.submission_url}
+                                        href={
+                                            (() => {
+                                                try {
+                                                    if (assessment.submission_url.startsWith("[")) {
+                                                        return JSON.parse(assessment.submission_url)[0]?.url || "#";
+                                                    }
+                                                    return assessment.submission_url;
+                                                } catch (e) {
+                                                    return "#";
+                                                }
+                                            })()
+                                        }
                                         target="_blank"
                                         rel="noreferrer"
                                         className="flex items-center gap-1.5 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white text-xs font-bold rounded-xl shadow-md shadow-blue-500/20 transition-all"

@@ -191,8 +191,8 @@ const { user, loadingUser } = useAuthModal();
 
     const daysCount = endIndex - startIndex + 1;
 
-    const start = new Date(`1970-01-01T${form.start_time}:00`);
-    const end = new Date(`1970-01-01T${form.end_time}:00`);
+    const start = new Date(`1970-01-01T${form.start_time.substring(0, 5)}:00`);
+    const end = new Date(`1970-01-01T${form.end_time.substring(0, 5)}:00`);
 
     if (end <= start)
       return { valid: false, message: "End time must be after start time." };
