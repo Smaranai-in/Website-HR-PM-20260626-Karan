@@ -1,0 +1,29 @@
+/* App Layout Styling */
+.App {
+  text-align: center;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(to bottom, #f0fdf4, #dcfce7);
+}
+
+/* Dark mode */
+.dark .App {
+  background: linear-gradient(to bottom, #0B1120, #0E1835);
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}

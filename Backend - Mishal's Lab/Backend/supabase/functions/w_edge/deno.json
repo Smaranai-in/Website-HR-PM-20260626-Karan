@@ -1,0 +1,13 @@
+{
+    "tasks": [
+        {
+            "compilerOptions": {
+                "allowJs": true,
+                "lib": [
+                    "deno.window"
+                ],
+                "strict": true
+            }
+        }
+    ]
+}

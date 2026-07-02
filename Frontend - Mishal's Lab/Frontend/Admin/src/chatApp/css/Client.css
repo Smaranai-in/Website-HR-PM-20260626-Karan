@@ -1,0 +1,853 @@
+/* Main Container */
+
+/* --- THEME AWARE CHAT COLORS --- */
+
+/* 1. Default (Light Mode) */
+.client-chat-container {
+  background-color: #f0f2f5 !important; /* Light WhatsApp Gray */
+  color: #111b21 !important;
+}
+
+.client-chat-header {
+  background-color: #00a884 !important; /* Teal */
+  color: white !important;
+}
+
+.client-message-bubble.received {
+  background-color: #ffffff !important;
+  color: #111b21 !important;
+}
+
+.client-message-bubble.sent {
+  background-color: #d9fdd3 !important; /* Light Green */
+  color: #111b21 !important;
+}
+
+/* 2. Dark Mode (Triggered by the .dark class from your button) */
+/* .dark .client-chat-container {
+  background-color: #0b141a !important;
+  color: #e9edef !important;
+}
+
+.dark .client-chat-header {
+  background-color: #202c33 !important;
+  color: #e9edef !important;
+}
+
+.dark .client-message-bubble.received {
+  background-color: #202c33 !important;
+  color: #e9edef !important;
+}
+
+.dark .client-message-bubble.sent {
+  background-color: #005c4b !important; 
+  color: #e9edef !important;
+}
+
+.dark .client-input-form {
+  background-color: #202c33 !important;
+}
+
+.dark .client-input-field {
+  background-color: #2a3942 !important;
+  color: #e9edef !important;
+} */
+
+.dark .client-chat-container {
+  background-color: #0b141a !important;
+  background-image: url("https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png") !important;
+  background-blend-mode: overlay !important;
+  color: #e9edef !important;
+}
+
+.dark .client-message-bubble.received {
+  background-color: #202c33 !important;
+  color: #e9edef !important;
+  border: none !important;
+}
+
+.dark .client-message-bubble.sent {
+  background-color: #005c4b !important;
+  color: #e9edef !important;
+}
+
+.dark .client-message-time {
+  color: rgba(233, 237, 239, 0.6) !important;
+}
+
+.dark .client-file-name {
+  color: #ffffff !important;
+}
+
+.dark .client-input-form, 
+.dark .client-chat-header {
+  background-color: #202c33 !important;
+}
+
+.client-container {
+  display: flex;
+  height: 100%; /* Fallback */
+  height: 100%; /* Mobile viewport fix */
+  width: 100%;
+  background-color: #0b141a; /* WhatsApp Background */
+  color: #e9edef;
+  overflow: hidden; /* Critical: Prevent body scroll */
+  position: relative;
+  background-image: url("https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png");
+  background-blend-mode: overlay;
+}
+
+/* Fix for mobile keyboard - Use fixed positioning to lock viewport */
+@media (max-width: 1024px) {
+    .client-container {
+        position: fixed !important;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 100% !important; /* Dynamic viewport height is critical */
+        width: 100%;
+        padding-top: env(safe-area-inset-top);
+        padding-bottom: env(safe-area-inset-bottom);
+        padding-left: env(safe-area-inset-left);
+        padding-right: env(safe-area-inset-right);
+        z-index: 9999; /* Ensure it stays on top */
+        overflow: hidden; /* Prevent container scroll */
+    }
+}
+
+/* Sidebar (Upload Area) */
+.client-sidebar {
+  width: 320px;
+  background-color: #111b21;
+  border-right: 1px solid #202c33;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease-in-out;
+  z-index: 50;
+  height: 100%; /* Ensure full height */
+}
+
+/* Mobile Sidebar Behavior */
+@media (max-width: 768px) {
+  .client-sidebar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    transform: translateX(-100%);
+    width: 85%;
+    max-width: 320px;
+    background: #111b21;
+    padding-top: calc(1.5rem + env(safe-area-inset-top));
+    box-shadow: 2px 0 10px rgba(0,0,0,0.5); /* Add shadow for better visibility */
+  }
+}
+
+.client-sidebar.open {
+  transform: translateX(0);
+}
+
+.client-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 40;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+.client-overlay.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.client-sidebar-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: #00a884; /* WhatsApp brand green */
+  letter-spacing: -0.025em;
+  margin-bottom: 2rem;
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.client-file-list, 
+.admin-client-list {
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0; 
+}
+
+.client-sidebar-footer {
+  margin-top: auto;
+  border-top: 1px solid #202c33;
+  padding-top: 1.5rem;
+  flex-shrink: 0; 
+}
+
+.client-signout-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: #e9edef;
+  background: transparent;
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  border: 1px solid transparent;
+  font-weight: 500;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.client-signout-btn:hover {
+  background-color: #202c33;
+}
+
+/* Chat Area */
+.client-chat-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: #0b141a;
+  position: relative;
+  width: 100%;
+  height: 100%; /* Important for flex child to fill height */
+  overflow: hidden; /* Prevent container itself from scrolling */
+}
+
+.client-chat-header {
+  height: 60px;
+  flex-shrink: 0; /* Keep header fixed height */
+  border-bottom: 1px solid #202c33;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #202c33;
+  /* Removed sticky positioning - Flexbox handles layout now */
+  z-index: 30;
+  width: 100%;
+}
+
+/* Mobile Fullscreen & Toggle Buttons */
+.client-mobile-menu-btn,
+.client-fullscreen-btn {
+  display: none;
+  background: transparent;
+  border: none;
+  color: #8696a0;
+  cursor: pointer;
+  padding: 0;
+  width: 40px; 
+  height: 40px; 
+  border-radius: 50%;
+  transition: all 0.2s;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .client-mobile-menu-btn,
+  .client-fullscreen-btn {
+    display: flex;
+  }
+}
+
+.client-mobile-menu-btn {
+    margin-right: 0.5rem;
+}
+
+.client-mobile-menu-btn:hover,
+.client-fullscreen-btn:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.client-chat-name {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #e9edef;
+  line-height: 1.2;
+}
+
+/* Avatar Styles */
+.client-avatar-container {
+  position: relative;
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+}
+
+.client-avatar {
+  background: #6a7175;
+  color: white;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  font-size: 1.125rem;
+  overflow: hidden;
+}
+
+.client-status-dot {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  width: 12px;
+  height: 12px;
+  border: 2px solid #202c33; 
+  border-radius: 50%;
+}
+
+.client-status-text {
+    font-size: 0.8rem;
+}
+
+.client-chat-body {
+  flex: 1; /* Take remaining space */
+  overflow-y: auto; /* Enable scrolling for messages only */
+  padding: 0 5%;
+  display: flex;
+  flex-direction: column;
+  gap: 2px; /* Tighter gap */
+  scroll-behavior: smooth;
+  padding-top: 1rem;
+  padding-bottom: 8px;
+  min-height: 0; /* Important for firefox flexbox scrolling */
+  -webkit-overflow-scrolling: touch; /* Smooth scroll on iOS */
+}
+
+@media (max-width: 768px) {
+  .client-chat-body {
+    padding: 0 8px;
+    padding-top: 1rem;
+  }
+}
+
+/* Date Separator */
+.date-separator {
+  display: flex;
+  justify-content: center;
+  margin: 12px 0;
+  position: sticky;
+  top: 8px;
+  z-index: 10;
+}
+
+.date-pill {
+  background-color: #1f2c34;
+  color: #8696a0;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+
+/* Message Styles */
+.client-message-wrapper {
+  display: flex;
+  width: 100%;
+  margin-bottom: 2px;
+}
+
+.client-message-wrapper.sent {
+  justify-content: flex-end;
+}
+
+.client-message-wrapper.received {
+  justify-content: flex-start;
+}
+
+.client-message-bubble {
+  max-width: 65%;
+  min-width: 80px;
+  border-radius: 10px;
+  padding: 6px 7px 6px 9px;
+  position: relative;
+  box-shadow: 0 1px 0.5px rgba(0,0,0,0.13);
+  font-size: 0.95rem;
+  line-height: 1.4;
+  display: flex;
+  flex-direction: column;
+  word-wrap: break-word; 
+  overflow-wrap: anywhere; 
+  white-space: pre-wrap;
+}
+
+@media (max-width: 768px) {
+  .client-message-bubble {
+    max-width: 85%;
+  }
+}
+
+.client-message-bubble.sent {
+  background-color: #005c4b; /* WhatsApp Sent Green */
+  color: #e9edef;
+  border-top-right-radius: 0;
+}
+
+.client-message-bubble.received {
+  background-color: #202c33; /* Dark gray */
+  color: #e9edef;
+  border-top-left-radius: 0;
+}
+
+/* Image specific */
+.client-image-bubble {
+  padding: 3px;
+  border-radius: 10px;
+  cursor: pointer;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.client-message-bubble.sent .client-image-bubble {
+    background-color: #005c4b;
+}
+
+.client-message-bubble.received .client-image-bubble {
+    background-color: #202c33;
+}
+
+.client-chat-image {
+  border-radius: 6px;
+  display: block;
+  max-width: 320px;
+  max-height: 350px;
+  object-fit: cover;
+  height: auto;
+}
+
+@media (max-width: 768px) {
+  .client-chat-image {
+    max-width: 200px;
+    max-height: 250px;
+    object-fit: cover;
+  }
+}
+
+.client-message-time {
+  font-size: 0.68rem;
+  color: rgba(233, 237, 239, 0.6);
+  align-self: flex-end; /* Push to right */
+  line-height: 1;
+  margin-left: 10px; /* Space from text */
+  margin-top: -4px;
+  float: right;
+  position: relative;
+  top: 4px;
+}
+
+.client-bubble-content {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between; 
+  position: relative;
+}
+
+/* Input Area */
+.client-input-form {
+  padding: 8px 10px;
+  background-color: #202c33;
+  border-top: 0;
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  z-index: 40;
+  min-height: 62px;
+}
+
+@media (max-width: 768px) {
+  .client-input-form {
+    padding: 6px 8px;
+  }
+}
+
+.client-input-field {
+  flex: 1;
+  border-radius: 8px; /* Slightly less rounded than pill for multiline */
+  background-color: #2a3942;
+  border: none;
+  padding: 9px 12px;
+  color: #e9edef;
+  font-size: 1rem;
+  resize: none; 
+  min-height: 40px; /* Matches previous input height */
+  max-height: 120px; /* Cap height */
+  overflow-y: auto;
+  line-height: 1.4;
+  font-family: inherit;
+}
+
+.client-input-field:focus {
+  outline: none;
+  background-color: #2a3942;
+}
+
+.client-upload-btn {
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+  color: #8696a0;
+}
+
+.client-upload-btn:hover {
+  background-color: rgba(255,255,255,0.05);
+}
+
+.client-send-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #00a884;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.client-send-btn:hover:not(:disabled) {
+  background: #008f6f;
+  transform: scale(1.05);
+}
+
+/* ... existing */
+
+/* Reply & Swipe Styles */
+.client-message-wrapper {
+  transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+  touch-action: pan-y; /* Allow vertical scroll, handle horizontal in JS */
+  position: relative;
+}
+
+
+
+.reply-trigger-icon {
+    position: absolute;
+    left: -40px; /* Hidden off-screen initially */
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: #202c33;
+    border-radius: 50%;
+    color: #e9edef;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+/* Quoted Message in Bubble */
+.quoted-message {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    padding: 6px 8px;
+    margin-bottom: 4px;
+    border-left: 4px solid #a855f7; /* Purple accent */
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    font-size: 0.85rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.quoted-message:hover {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.quoted-sender {
+    font-weight: 600;
+    color: #d8b4fe; /* Light purple */
+    font-size: 0.75rem;
+    margin-bottom: 2px;
+}
+
+.quoted-content {
+    color: rgba(255, 255, 255, 0.8);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* Ensure reply preview sits well */
+.reply-preview-container {
+    background-color: #1f2c34 !important; /* WhatsApp input bg */
+    border-color: #2a3942 !important;
+}
+
+/* Highlight animation for jumping to message */
+@keyframes highlight-message {
+    0% { background-color: rgba(37, 99, 235, 0.2); }
+    100% { background-color: transparent; }
+}
+
+.message-highlight {
+    animation: highlight-message 1.5s ease-out;
+}
+
+/* Fix for documents/images breaking the UI */
+.message-content img, 
+.message-content video,
+.message-attachment {
+    max-width: 100%;    
+    height: auto;       
+    border-radius: 8px;
+    display: block;
+    margin-top: 5px;
+}
+
+
+.message-bubble {
+    max-width: 85%; 
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+
+
+/* --- UI FIX FOR DOCUMENTS & IMAGES --- */
+
+/* Prevents images from expanding beyond the chat bubble width */
+.client-chat-image {
+  max-width: 100% !important;
+  max-height: 250px !important; /* Limits height so long images don't fill the screen */
+  object-fit: cover;
+  border-radius: 8px;
+  display: block;
+}
+
+/* Fixes the width of the bubble for [FILE] and [IMAGE] messages */
+.client-message-bubble {
+  max-width: 85% !important; /* Keeps bubbles from hitting the edges */
+  width: auto !important;
+  overflow: hidden; /* Clips anything that tries to poke out */
+}
+
+/* Fix for long filenames in Documents */
+.truncate {
+  max-width: 140px !important; /* Adjust this if the text still pushes the bubble */
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Force the document link to stay inside the bubble */
+.client-message-bubble a {
+  min-width: 0 !important; 
+  width: 100% !important;
+}
+
+
+/* --- FIX FOR THREE-DOT MENU & ACTIONS --- */
+
+/* Allow the menu to pop OUTSIDE the bubble */
+.client-message-bubble {
+  overflow: visible !important; /* Overrides the 'hidden' rule that was cutting off the dots */
+}
+
+/* Ensure the wrapper handles the menu positioning */
+.client-message-wrapper {
+  position: relative;
+  overflow: visible !important;
+}
+
+/* Make the three-dot button visible on hover */
+.message-menu-btn {
+  background: rgba(15, 23, 42, 0.6);
+  border-radius: 50%;
+  padding: 4px;
+  color: #8696a0;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.message-menu-btn:hover {
+  color: white;
+  background: rgba(15, 23, 42, 0.9);
+}
+
+/* Ensure the dropdown menu is on top of everything */
+.message-menu-dropdown {
+  position: absolute;
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  z-index: 1000; /* Higher than bubbles */
+  min-width: 120px;
+}
+
+/* Mobile/Small Widget adjustment: Keep dots visible */
+@media (max-width: 1024px) {
+  .client-message-wrapper .opacity-0 {
+      opacity: 1 !important; /* Keeps dots visible so you don't have to 'hover' on mobile */
+  }
+}
+
+:not(.dark) .client-chat-container {
+  background-color: #f0f2f5 !important;
+  background-image: none !important;
+}
+
+
+:not(.dark) .client-bubble-content span,
+:not(.dark) .truncate {
+  color: #111b21 !important;
+}
+
+
+:not(.dark) .client-message-time {
+  color: rgba(0, 0, 0, 0.6) !important; 
+}
+
+
+:not(.dark) .client-message-bubble.received {
+  background-color: #ffffff !important;
+  border: 1px solid #dee2e6 !important;
+}
+
+
+:not(.dark) .client-message-bubble.sent {
+  background-color: #d9fdd3 !important;
+  color: #111b21 !important;
+}
+
+
+:not(.dark) .client-input-field {
+  background-color: #ffffff !important;
+  color: #111b21 !important;
+  border: 1px solid #dee2e6 !important;
+}
+
+/* Removes the dark 'shadow' effect on documents in Light Mode */
+:not(.dark) .client-message-bubble a {
+  background-color: rgba(0, 0, 0, 0.05) !important; /* This replaces the dark shadow with a light gray tint */
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  box-shadow: none !important;
+}
+
+/* Fixes the text color inside that box for Light Mode */
+:not(.dark) .client-message-bubble a span {
+  color: #111b21 !important;
+}
+
+
+
+
+
+
+
+/* ============================================================
+   FINAL THEME CONTROL (REPLACE YOUR BOTTOM SECTION WITH THIS)
+   ============================================================ */
+
+/* 1. DARK MODE - FORCED PRIORITY */
+/* We target html and body to ensure the highest specificity */
+html.dark .client-chat-container,
+body.dark .client-chat-container,
+.dark .client-chat-container {
+    background-color: #0b141a !important;
+    background-image: url("https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png") !important;
+    background-blend-mode: overlay !important;
+    color: #e9edef !important;
+}
+
+.dark .client-chat-header,
+.dark .client-input-form {
+    background-color: #202c33 !important;
+    border-color: #2a3942 !important;
+}
+
+.dark .client-message-bubble.received {
+    background-color: #202c33 !important;
+    color: #e9edef !important;
+    border: none !important;
+}
+
+.dark .client-message-time,
+.dark .client-file-name {
+    color: #e9edef !important;
+}
+
+/* 2. LIGHT MODE - ONLY ACTIVE WHEN .DARK IS MISSING */
+/* Using not will 'turn off' this styles in dark mode */
+:not(.dark) .client-chat-container {
+    background-color: #f0f2f5 !important;
+    background-image: none !important;
+    color: #111b21 !important;
+}
+
+:not(.dark) .client-chat-header {
+    background-color: #00a884 !important; /* WhatsApp Green for Light Mode */
+    color: white !important;
+}
+
+:not(.dark) .client-message-bubble.received {
+    background-color: #ffffff !important;
+    color: #111b21 !important;
+    border: 1px solid #dee2e6 !important;
+    box-shadow: 0 1px 0.5px rgba(0,0,0,0.1) !important;
+}
+
+:not(.dark) .client-message-bubble.sent {
+    background-color: #d9fdd3 !important;
+    color: #111b21 !important;
+}
+
+:not(.dark) .client-message-time,
+:not(.dark) .client-file-name {
+    color: #111b21 !important; /* Makes text visible in light mode */
+}
+
+:not(.dark) .client-input-form {
+    background-color: #f0f2f5 !important;
+}
+
+:not(.dark) .client-input-field {
+    background-color: #ffffff !important;
+    color: #111b21 !important;
+    border: 1px solid #dee2e6 !important;
+}
+
+/* 3. CLEAN DOCUMENT CARD (Universal) */
+/* .client-file-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: rgba(0, 0, 0, 0.05);
+    text-decoration: none;
+} */
+
+.dark .client-file-card {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.dark .client-input-form, .dark .client-input-field {
+  background-color: #202c33 !important;
+  color: #e9edef !important;
+}

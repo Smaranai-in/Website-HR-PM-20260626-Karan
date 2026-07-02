@@ -1,0 +1,161 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* SmaranAI Design System - HSL Colors */
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 220 20% 20%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 220 20% 20%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 20% 20%;
+
+    /* Primary blue - matching the button color */
+    --primary: 210 79% 46%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary - light gray background */
+    --secondary: 220 14% 96%;
+    --secondary-foreground: 220 20% 20%;
+
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 9% 46%;
+
+    --accent: 220 14% 96%;
+    --accent-foreground: 220 20% 20%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Border colors */
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 210 79% 46%;
+
+    --radius: 0.5rem;
+
+    /* Custom SmaranAI colors */
+    --smaran-blue: 210 79% 46%;
+    --smaran-teal: 174 72% 56%;
+    --smaran-purple: 252 67% 35%;
+    --smaran-gray-light: 220 20% 97%;
+    --smaran-gray: 220 9% 46%;
+    
+    /* Link color */
+    --link: 210 79% 46%;
+
+    /* Sidebar */
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 79% 56%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+}
+
+@layer components {
+  /* Auth input styling */
+  .auth-input {
+    @apply h-12 rounded-lg border border-border bg-background px-4 text-sm transition-all duration-200;
+    @apply focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none;
+    @apply placeholder:text-muted-foreground;
+  }
+
+  .auth-input-active {
+    @apply border-primary ring-2 ring-primary/20;
+  }
+
+  /* Auth button styling */
+  .auth-button {
+    @apply h-12 rounded-lg bg-primary px-8 font-medium text-primary-foreground transition-all duration-200;
+    @apply hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2;
+    @apply disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  /* Role option styling */
+  .role-option {
+    @apply flex h-12 cursor-pointer items-center justify-center rounded-lg border border-primary/50 px-4 text-sm font-medium transition-all duration-200;
+    @apply hover:border-primary hover:bg-primary/5;
+  }
+
+  .role-option-selected {
+    @apply border-primary bg-primary/10 text-primary;
+  }
+
+  /* Status toggle styling */
+  .status-toggle {
+    @apply flex h-11 cursor-pointer items-center justify-center rounded-lg border border-border px-6 text-sm font-medium transition-all duration-200;
+    @apply hover:border-primary/50;
+  }
+
+  .status-toggle-selected {
+    @apply border-primary bg-primary/5;
+  }
+
+  /* Auth panel right side */
+  .auth-panel-right {
+    @apply hidden lg:flex bg-secondary items-center justify-center p-8;
+  }
+
+  /* Link styling */
+  .auth-link {
+    @apply text-primary hover:text-primary/80 font-medium transition-colors duration-200;
+  }
+}
